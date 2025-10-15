@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Store Order</title>
+</head>
+<body>
+  <h1 id="greeting">Welcome!</h1>
+  <p id="output"></p>
+
+  <script>
+    
+    alert("Welcome to our store!");
+
+    // the customer name, item, and number of items
+    Let name = prompt("What is your name?");
+    let item = prompt("What item would you like to order?");
+    let quantity = prompt("How many would you like? (1-99)");
+
+    
+    quantity = parseInt(quantity);
+    if (quantity < 1 || quantity > 99 || isNaN(quantity)) {
+      quantity = 1;
+      alert("Invalid quantity, set to 1 by default.");
+    }
+
+   
+    let now = new Date();
+    let hour = now.getHours();
+    let greeting;
+
+    if (hour < 12) {
+      greeting = "Good Morning";
+    } else if (hour < 18) {
+      greeting = "Good Afternoon";
+    } else {
+      greeting = "Good Evening";
+    }
+
+    // print all data on the webpage
+    document.getElementById("greeting").textContent = `${greeting} ${name}, Thank you for ordering!`;
+
+    // arrival date 7 days later
+    let arrival = new Date();
+    arrival.setDate(now.getDate() + 7);
+
+    //show order info
+    document.getElementById("output").innerHTML = 
+      `You ordered ${quantity} ${item}(s).<br>` +
+      `Your order was placed on ${now.toDateString()}.<br>` +
+      `Expected arrival date: ${arrival.toDateString()}.`;
+  </script>
+</body>
+</html>
