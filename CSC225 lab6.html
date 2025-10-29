@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CSC 225 Lab 6 - Cat Facts</title>
+</head>
+<body>
+
+  <h2>Cat Facts </h2>
+
+  <!-- Default picture -->
+  <img id="catImg" src="https://placekitten.com/200/200" width="200" height="200"><br><br>
+
+  <!-- Button to get data -->
+  <button onclick="loadFacts()">Load Cat Facts</button>
+
+  <!-- Table for facts -->
+  <table border="1" style="margin-top:15px;">
+    <tr>
+      <th>factId</th>
+      <th>fact</th>
+    </tr>
+    <tbody id="factTable"></tbody>
+  </table>
+
+  <script>
+    function loadFacts() {
+      // Fetch data from the REST API
+      fetch("https://brianobruno.github.io/cats.json")
+      .then(response => response.json())
+      .then(data => {
+        
+        data.facts.sort((a, b) => a.factId - b.factId);
+
+        
+        let table = document.getElementById("factTable");
+        table.innerHTML = "";
+
+        
+        for (let i = 0; i < data.facts.length; i++) {
+          let fact = data.facts[i];
+          let row = "<tr><td>" + fact.factId + "</td><td>" + fact.text + "</td></tr>";
+          table.innerHTML += row;
+        }
+
+        
+        document.getElementById("catImg").src = data.catPhoto;
+      })
+      .catch(error => {
+        alert("Error loading data!");
+        console.log(error);
+      });
+    }
+  </script>
+
+</body>
+</html>
